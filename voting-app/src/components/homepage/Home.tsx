@@ -22,8 +22,9 @@ const Home = (handleLoginPopup: any) => {
           </p>
 
           <Link
+            type="submit"
             to="/login"
-            className="px-5 py-1 text-black bg-white rounded-full bg-wh-500 tes te mt-7 hover:bg-orange-500/80 transition-200"
+            className="px-5 py-1 text-white bg-orange-600 rounded-full bg-wh-500 tes te mt-7 hover:bg-orange-500/80 transition-200"
           >
             Login Now
           </Link>

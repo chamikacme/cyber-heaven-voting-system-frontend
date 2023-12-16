@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import OtpInput from "react-otp-input";
 import NavBar from "../Nav/NavBar";
 import Logo from "../../assets/email (1).png";
-// import OTPInput, { ResendOTP } from "otp-input-react";
 
 const OtpPage = () => {
   const [otp, setOtp] = useState("");

@@ -1,72 +1,54 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import Logo from "../../assets/sanmark.png";
 
-const NavBar = (handleLoginPopup:any) => {
-  const [popUp, setPopUp] = useState(false)
+const NavBar = () => {
   return (
     <>
-    <main className="shadow-lg bg-white/70 backdrop-blur-sm">
-        <div className="container">
-          <nav className="flex items-center justify-between ">
-            <a href="#" className="text-3xl font-bold text-gray-800">
-              <img src={Logo} alt="Logo"  height={100} className="inline h-10 mr-1" />
-              
+      <nav className="fixed top-0 z-20 w-full bg-white border-b border-gray-200 dark:bg-gray-900 start-0 dark:border-gray-600">
+        <div className="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
+          <a
+            href="/"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
+            <img src={Logo} className="h-8" alt="Sanmark Logo" />
+          </a>
+          <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+            <a
+              href="/"
+              type="button"
+              className="text-white bg-orange-600 hover:bg-orange-500/100  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3.5 text-center inline-flex items-center me-2"
+            >
+              Home
             </a>
-            <div className="hidden sm:block">
-              <ul className="flex items-center justify-center gap-4 font-semibold">
-                <li>
-                  <a
-                    href="/"
-                    className="inline-block px-4 py-4 text-gray-700 select-none hover:text-gray-900"
-                  >
-                    Home
-                  </a>
-                </li>
-                {/* <li>
-                  <a
-                    href="#"
-                    className="inline-block px-4 py-4 text-gray-700 select-none hover:text-gray-900"
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="inline-block px-4 py-4 text-gray-700 select-none hover:text-gray-900"
-                  >
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    // onClick={handleLoginPopup}
-                    className="inline-block px-4 py-4 text-gray-700 select-none hover:text-gray-900"
-                  >
-                    Login
-                  </a>
-                </li> */}
-              </ul>
-            </div>
-            <div className="block sm:hidden">
-              <ul className="flex items-center justify-center gap-4 text-xl font-semibold">
-                <li>
-                  <a
-                    href="/"
-                    
-                    className="inline-block px-4 py-4 text-gray-700 hover:text-gray-900"
-                  >
-                    Home
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+            <button
+              data-collapse-toggle="navbar-sticky"
+              type="button"
+              className="inline-flex items-center justify-center w-10 h-10 p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-sticky"
+              aria-expanded="false"
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-      </main>
+      </nav>
     </>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
