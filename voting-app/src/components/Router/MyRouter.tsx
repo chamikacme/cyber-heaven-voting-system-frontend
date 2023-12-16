@@ -4,6 +4,7 @@ import Home from "../homepage/Home";
 import Login from "../login/Login";
 import OtpPage from "../OtpPage/OtpPage";
 import Main from "../Main/Main";
+import ThnaksPage from "../ThanksPage/ThnaksPage";
 
 const MyRouter = () => {
   return (
@@ -13,6 +14,7 @@ const MyRouter = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/otp" element={<OtpPage />} />
         <Route path="/main" element={<Main />} />
+        <Route path="/thanks" element={<ThnaksPage />} />
       </Routes>
     </>
   );
