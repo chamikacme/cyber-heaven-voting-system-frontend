@@ -14,14 +14,11 @@ function Login() {
   const [formData, setFormData] = React.useState<FormData>({ 
     email: "" 
   });
-
   
-  const [email, setEmail] = useState();
   const notify = () => toast.success("successful");
-
+  
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     event.persist();
-    // const  email = event.target.value;
     setFormData({ ...formData, [event.target.name]: event.target.value });
   }
 
@@ -29,19 +26,15 @@ function Login() {
     event.preventDefault();
 
     const data = {
-      email: formData.email,
-      
+      email: formData.email, 
     };
-
     await axiosClient()
       .post("/auth/send-otp", data)
       .then((res) => {
         // setEmail(email);
         // toast.success(res.data.message);
         navigate("/otp");
-        localStorage.setItem(" sendingEmail", data.email);
-        console.log("res---------",res);
-        
+        localStorage.setItem("sendingEmail", data.email);  
       })
       .catch((error) => {
         // error(error);

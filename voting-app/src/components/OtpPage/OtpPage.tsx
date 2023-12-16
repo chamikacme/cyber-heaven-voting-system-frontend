@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import NavBar from "../Nav/NavBar";
 import Logo from "../../assets/email (1).png";
+import axiosClient from "../../AxiosClient/axiosClient";
 
 const OtpPage = () => {
   const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+  const email = localStorage.getItem("sendingEmail");
+  const data = {
+    password: otp,
+    email: email,
+  };
+  useEffect(() => {
+    if (otp.length === 6) {
+      axiosClient()
+        .post("/auth/signin", data)
+        .then((res) => {
+          navigate("/main");
+          console.log("otp--------------response", res);
+          localStorage.setItem("AuthToken", res.data.token);
+        })
+        .catch((err) => {});
+    }
+  }, [otp]);
+
   return (
     <>
       <div>
