@@ -27,7 +27,7 @@ const OtpPage = () => {
                     onChange={setOtp}
                     numInputs={6}
                     inputStyle="p-1 w-3 m-1 text-white text-3xl rounded-lg bg-orange-500/80 "
-                    inputType="number"
+                    inputType="text"
                     renderSeparator={<span>-</span>}
                     shouldAutoFocus
                     renderInput={(props) => <input {...props} />}
