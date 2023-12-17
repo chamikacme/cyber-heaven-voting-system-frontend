@@ -1,29 +1,49 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import NavBar from "../Nav/NavBar";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axiosClient from "../../AxiosClient/axiosClient";
-
-
+import NavBar from "../Nav/NavBar";
 
 interface FormData {
   email: string;
 }
 
- function Login() {
+function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = React.useState<FormData>({ email: '' });
+  const [formData, setFormData] = React.useState<FormData>({ 
+    email: "" 
+  });
 
+  
+  const [email, setEmail] = useState();
+  const notify = () => toast.success("successful");
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const  email = event.target.value;
-    setFormData({ ...formData, email });
+    event.persist();
+    // const  email = event.target.value;
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   }
-  
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // onSubmit(formData);
-    axiosClient().
+
+    const data = {
+      email: formData.email,
+      
+    };
+
+    await axiosClient()
+      .post("/auth/send-otp", data)
+      .then((res) => {
+        // setEmail(email);
+        // toast.success(res.data.message);
+        navigate("/otp");
+        localStorage.setItem(" sendingEmail", data.email);
+      })
+      .catch((error) => {
+        // error(error);
+      });
   }
 
   return (
@@ -60,6 +80,7 @@ interface FormData {
 
                 <button
                   type="submit"
+                  onClick={notify}
                   className="w-full text-white bg-orange-600 hover:bg-orange-500/80  focus:ring-4 focus:outline-none focus:ring-primary-300 font-mediumrounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 rounded-full"
                 >
                   Sign in

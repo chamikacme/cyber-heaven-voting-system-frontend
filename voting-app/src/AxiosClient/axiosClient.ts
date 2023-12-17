@@ -4,7 +4,8 @@ const axiosClient = () => {
         baseURL: 'http://localhost:3001',
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            // "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            
         },
     })
 };
