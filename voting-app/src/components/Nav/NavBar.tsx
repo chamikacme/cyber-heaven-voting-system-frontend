@@ -16,7 +16,7 @@ const NavBar = () => {
             <a
               href="/"
               type="button"
-              className="text-white bg-orange-600 hover:bg-orange-500/100  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3.5 text-center inline-flex items-center me-2"
+              className="text-white bg-orange-600 hover:bg-orange-500/100  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-5 py-3.5 text-center inline-flex items-center me-2"
             >
               Home
             </a>

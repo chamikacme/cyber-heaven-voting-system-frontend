@@ -40,6 +40,8 @@ function Login() {
         // toast.success(res.data.message);
         navigate("/otp");
         localStorage.setItem(" sendingEmail", data.email);
+        console.log("res---------",res);
+        
       })
       .catch((error) => {
         // error(error);
