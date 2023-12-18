@@ -4,37 +4,47 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosClient from "../../AxiosClient/axiosClient";
 import NavBar from "../Nav/NavBar";
+import { useAuth } from "../../Providers/AuthProvider";
 
 interface FormData {
   email: string;
+  password: string;
 }
 
 function Login() {
   const navigate = useNavigate();
-  const [formData, setFormData] = React.useState<FormData>({ 
-    email: "" 
+  const [formData, setFormData] = React.useState<FormData>({
+    email: "",
+    password: "",
   });
-  
+
   const notify = () => toast.success("successful");
-  
+
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     event.persist();
     setFormData({ ...formData, [event.target.name]: event.target.value });
   }
 
+  const { setToken, setUser } = useAuth();
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const data = {
-      email: formData.email, 
+      email: formData.email,
+      password: formData.password,
     };
+    console.log(data);
     await axiosClient()
-      .post("/auth/send-otp", data)
+      .post("/auth/signin", data)
       .then((res) => {
         // setEmail(email);
         // toast.success(res.data.message);
         navigate("/otp");
-        localStorage.setItem("sendingEmail", data.email);  
+        console.log(res.data);
+		setToken(res.data.token);
+		setUser(res.data.user);
+        localStorage.setItem("token", res.data.token);
       })
       .catch((error) => {
         // error(error);
@@ -69,6 +79,25 @@ function Login() {
                     onChange={handleInputChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@thesanmark.com"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="otp"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Enter your one time password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Enter your one time password"
                     required
                   />
                 </div>
