@@ -1,6 +1,6 @@
 import NavBar from "../Nav/NavBar";
 
-const ThnaksPage = () => {
+const ThanksPage = () => {
   return (
     <>
       <main>
@@ -20,4 +20,4 @@ const ThnaksPage = () => {
   );
 };
 
-export default ThnaksPage;
+export default ThanksPage;

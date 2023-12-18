@@ -40,11 +40,11 @@ function Login() {
       .then((res) => {
         // setEmail(email);
         // toast.success(res.data.message);
-        navigate("/otp");
         console.log(res.data);
-		setToken(res.data.token);
-		setUser(res.data.user);
+        setToken(res.data.token);
+        setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
+        navigate("/main");
       })
       .catch((error) => {
         // error(error);

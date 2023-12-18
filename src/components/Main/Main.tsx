@@ -1,9 +1,13 @@
 import React from "react";
 import NavBar from "../Nav/NavBar";
 import Icon from "../../assets/crown-svgrepo-com.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Providers/AuthProvider";
 
 const Main = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   return (
     <>
       <main>
@@ -16,16 +20,21 @@ const Main = () => {
           "
           >
             Vote Now...
-           
           </h1>
-         
+
           <div className="mt-5">
-            <a
+            <button
               type="submit"
-              href="/login"
               className="text-white bg-orange-600 hover:bg-orange-500/100  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3.5 text-center inline-flex items-center me-2 "
+              disabled={user.isFemaleVoteCasted}
+              onClick={() => {
+                if (user.isFemaleVoteCasted) {
+                  alert("You have already voted for Queen");
+                } else {
+                  navigate("/vote");
+                }
+              }}
             >
-              
               <svg
                 width="800px"
                 height="800px"
@@ -90,11 +99,18 @@ const Main = () => {
                 ></circle>
               </svg>
               Queen
-            </a>
-            <a
+            </button>
+            <button
               type="submit"
-              href="/login"
               className="text-white bg-orange-600 hover:bg-orange-500/100  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3.5 text-center inline-flex items-center me-2 "
+              disabled={user.isMaleVoteCasted}
+              onClick={() => {
+                if (user.isMaleVoteCasted) {
+                  alert("You have already voted for King");
+                } else {
+                  navigate("/vote");
+                }
+              }}
             >
               <svg
                 width="800px"
@@ -179,7 +195,7 @@ const Main = () => {
                 ></path>
               </svg>
               King
-            </a>
+            </button>
           </div>
         </div>
       </main>
