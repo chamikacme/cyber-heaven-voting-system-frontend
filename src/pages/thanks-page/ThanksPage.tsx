@@ -1,6 +1,14 @@
-import NavBar from "../Nav/NavBar";
+import { useAuth } from "../../Providers/AuthProvider";
+import NavBar from "../../components/navbar/NavBar";
 
 const ThanksPage = () => {
+  const { setToken, setUser } = useAuth();
+  setTimeout(() => {
+    localStorage.clear();
+    setToken("");
+    setUser({} as any);
+  }, 5000);
+
   return (
     <>
       <main>
@@ -14,6 +22,8 @@ const ThanksPage = () => {
           >
             Thank you!
           </h1>
+          <br />
+          <p className="text-white">You'll be logged out!!!</p>
         </div>
       </main>
     </>

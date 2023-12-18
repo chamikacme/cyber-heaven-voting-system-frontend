@@ -1,10 +1,60 @@
-import { useState } from "react";
-import { data } from "./data";
+import { useEffect, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
+import { useLocation, useNavigate } from "react-router";
+import axiosClient from "../../AxiosClient/axiosClient";
+import { useAuth } from "../../Providers/AuthProvider";
 
 function VotePage() {
+  const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const { user, setUser } = useAuth();
+
+  type Candidate = {
+    id: number;
+    firstName: string;
+    lastName: string;
+    imageUrl: string;
+  };
+
+  var data: Candidate[] = [];
+
+  if (state) {
+    data = state?.data;
+  }
+
   const [selected, setSelected] = useState<number[]>();
   const [query, setQuery] = useState("");
+
+  async function castVote() {
+    await axiosClient()
+      .post("/votes", {
+        userId: user.id,
+        voteType: state?.gender,
+        candidateId: selected,
+      })
+      .then((res) => {
+        if (state.gender === "Male") {
+          setUser({
+            ...user,
+            isMaleVoteCasted: true,
+          });
+        } else if (state.gender === "Female") {
+          setUser({
+            ...user,
+            isFemaleVoteCasted: true,
+          });
+        }
+        navigate("/main");
+      });
+  }
+
+  useEffect(() => {
+    if (!state) {
+      navigate("/main");
+    }
+  }, [state, navigate]);
+
   return (
     <div>
       <div className="bg-[#14452F] flex flex-col items-center min-h-screen">
@@ -63,13 +113,15 @@ function VotePage() {
               .filter((item) => {
                 if (query === "") {
                   return item;
-                } else if (
+                }
+                if (
                   (item.firstName + " " + item.lastName)
                     .toLowerCase()
                     .includes(query.toLowerCase())
                 ) {
                   return item;
                 }
+                return null;
               })
               .map((item) => (
                 <li
@@ -145,12 +197,13 @@ function VotePage() {
               ))}
           </ul>
         </div>
-        {(selected && selected.length ===3) ? (
+        {selected && selected.length === 3 ? (
           <div className="fixed bottom-0 bg-[#14452F] flex w-full justify-center py-4">
             <div className="max-w-md w-full px-6">
               <button
                 className="inline-flex items-center px-4 py-3 text-lg justify-center font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full"
                 disabled={!selected || selected!.length < 3}
+                onClick={castVote}
               >
                 Vote
               </button>

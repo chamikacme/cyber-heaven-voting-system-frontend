@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import NavBar from "../Nav/NavBar";
+import NavBar from "../../components/navbar/NavBar";
 
 const Home = (handleLoginPopup: any) => {
   return (

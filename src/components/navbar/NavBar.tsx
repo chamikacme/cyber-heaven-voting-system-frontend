@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Logo from "../../assets/sanmark.png";
 
 const NavBar = () => {

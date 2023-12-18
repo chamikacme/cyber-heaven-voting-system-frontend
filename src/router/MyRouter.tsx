@@ -1,13 +1,12 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "../homepage/Home";
-import Login from "../login/Login";
-import OtpPage from "../OtpPage/OtpPage";
-import Main from "../Main/Main";
-import ThanksPage from "../ThanksPage/ThanksPage";
-import PrivateRoutes from "../../utils/privateRoutes";
-import VotePage from "../VotingPage/VotePage";
-import AuthRoutes from "../../utils/authRoutes";
+
+import Home from "../pages/homepage/Home";
+import Login from "../pages/login-page/Login";
+import Main from "../pages/main-page/Main";
+import ThanksPage from "../pages/thanks-page/ThanksPage";
+import VotePage from "../pages/voting-page/VotePage";
+import AuthRoutes from "../utils/authRoutes";
+import PrivateRoutes from "../utils/privateRoutes";
 
 const MyRouter = () => {
   return (
@@ -18,7 +17,6 @@ const MyRouter = () => {
           <Route path="/login" element={<Login />} />
         </Route>
         <Route element={<PrivateRoutes />}>
-          <Route path="/otp" element={<OtpPage />} />
           <Route path="/main" element={<Main />} />
           <Route path="/vote" element={<VotePage />} />
           <Route path="/thanks" element={<ThanksPage />} />
