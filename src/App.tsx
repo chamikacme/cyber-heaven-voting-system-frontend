@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import "./App.css";
 
-import MyRouter from "./components/Router/MyRouter";
 import AuthProvider from "./Providers/AuthProvider";
+import MyRouter from "./router/MyRouter";
 
 const App = () => {
   return (

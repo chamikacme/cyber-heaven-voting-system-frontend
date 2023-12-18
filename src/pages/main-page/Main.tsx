@@ -1,12 +1,34 @@
-import React from "react";
-import NavBar from "../Nav/NavBar";
-import Icon from "../../assets/crown-svgrepo-com.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axiosClient from "../../AxiosClient/axiosClient";
 import { useAuth } from "../../Providers/AuthProvider";
+import NavBar from "../../components/navbar/NavBar";
 
 const Main = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  async function getMaleCandidates() {
+    return await axiosClient()
+      .get("/users/candidates/male")
+      .then((res) => {
+        navigate("/vote", { state: { data: res.data, gender: "Male" } });
+      });
+  }
+
+  async function getFemaleCandidates() {
+    await axiosClient()
+      .get("/users/candidates/female")
+      .then((res) => {
+        navigate("/vote", { state: { data: res.data, gender: "Female" } });
+      });
+  }
+
+  useEffect(() => {
+    if (user.isFemaleVoteCasted && user.isMaleVoteCasted) {
+      navigate("/thanks");
+    }
+  }, [user, navigate]);
 
   return (
     <>
@@ -31,7 +53,7 @@ const Main = () => {
                 if (user.isFemaleVoteCasted) {
                   alert("You have already voted for Queen");
                 } else {
-                  navigate("/vote");
+                  getFemaleCandidates();
                 }
               }}
             >
@@ -108,7 +130,7 @@ const Main = () => {
                 if (user.isMaleVoteCasted) {
                   alert("You have already voted for King");
                 } else {
-                  navigate("/vote");
+                  getMaleCandidates();
                 }
               }}
             >

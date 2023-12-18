@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosClient from "../../AxiosClient/axiosClient";
-import NavBar from "../Nav/NavBar";
 import { useAuth } from "../../Providers/AuthProvider";
+import NavBar from "../../components/navbar/NavBar";
 
 interface FormData {
   email: string;
@@ -34,13 +34,11 @@ function Login() {
       email: formData.email,
       password: formData.password,
     };
-    console.log(data);
     await axiosClient()
       .post("/auth/signin", data)
       .then((res) => {
         // setEmail(email);
         // toast.success(res.data.message);
-        console.log(res.data);
         setToken(res.data.token);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
