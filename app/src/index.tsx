@@ -3,13 +3,28 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import Snowfall from "react-snowfall";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
+interface SnowfallProps {
+  speed: [number, number];
+  count: number;
+  radius: [number, number];
+}
 root.render(
   <BrowserRouter>
     <App />
+
+    <Snowfall
+      {...({
+        speed: [0, 0.1],
+        count: 45,
+        radius: [0, 2],
+      } as SnowfallProps)}
+    />
   </BrowserRouter>
 );
 
