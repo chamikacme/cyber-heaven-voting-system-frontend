@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  frontend-app:
+    container_name: frontend-app
+    build:
+      context: ../
+      dockerfile: ./docker/files/dev.Dockerfile
+      target: development
+      args:
+        - GID=${GID}
+        - UID=${UID}
+    command: npm start
+    working_dir: /home/app-user
+    volumes:
+      - ../app/:/home/app-user/
+      - /home/app-user/node_modules/
+    ports:
+      - "3001:3000"

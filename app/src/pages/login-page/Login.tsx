@@ -7,14 +7,14 @@ import { useAuth } from "../../Providers/AuthProvider";
 import NavBar from "../../components/navbar/NavBar";
 
 interface FormData {
-  email: string;
+  username: string;
   password: string;
 }
 
 function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState<FormData>({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -31,22 +31,18 @@ function Login() {
     event.preventDefault();
 
     const data = {
-      email: formData.email,
+      username: formData.username,
       password: formData.password,
     };
     await axiosClient()
       .post("/auth/signin", data)
       .then((res) => {
-        // setEmail(email);
-        // toast.success(res.data.message);
         setToken(res.data.token);
         setUser(res.data.user);
         localStorage.setItem("token", res.data.token);
         navigate("/main");
       })
-      .catch((error) => {
-        // error(error);
-      });
+      .catch((error) => {});
   }
 
   return (
@@ -64,19 +60,19 @@ function Login() {
               <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="username"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Your Sanmark email address
+                    Username
                   </label>
                   <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={formData.email}
+                    type="text"
+                    name="username"
+                    id="username"
+                    value={formData.username}
                     onChange={handleInputChange}
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@thesanmark.com"
+                    placeholder="Enter your username"
                     required
                   />
                 </div>
@@ -86,7 +82,7 @@ function Login() {
                     htmlFor="otp"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    Enter your one time password
+                    Password
                   </label>
                   <input
                     type="password"

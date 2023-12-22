@@ -1,7 +1,7 @@
 import axios from "axios";
 const axiosClient = () => {
   return axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://api-eve.sanmark.dev",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,

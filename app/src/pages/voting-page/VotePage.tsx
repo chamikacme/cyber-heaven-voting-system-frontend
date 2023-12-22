@@ -10,6 +10,8 @@ function VotePage() {
 
   const { user, setUser } = useAuth();
 
+  console.log(user);
+
   type Candidate = {
     id: number;
     firstName: string;
