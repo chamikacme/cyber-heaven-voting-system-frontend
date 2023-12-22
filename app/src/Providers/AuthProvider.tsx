@@ -1,12 +1,13 @@
-import React, { ReactNode, createContext, useState } from "react";
+import React, { ReactNode, createContext, useEffect, useState } from "react";
+import axiosClient from "../AxiosClient/axiosClient";
 
 export interface User {
   id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
+  username: string;
   isMaleVoteCasted: boolean;
   isFemaleVoteCasted: boolean;
+  isAdmin: boolean;
+  isSuperAdmin: boolean;
 }
 
 interface AuthContextProps {
@@ -28,6 +29,21 @@ function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const [user, setUser] = useState<User>({} as User);
+
+  useEffect(() => {
+    if (token) {
+      axiosClient()
+        .get("/auth/validate-user", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          error.response.status === 401 && setToken("");
+        });
+    }
+  }, [token]);
 
   return (
     <AuthContext.Provider value={{ token, setToken, user, setUser }}>

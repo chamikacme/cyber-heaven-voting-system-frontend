@@ -10,7 +10,7 @@ const Main = () => {
 
   async function getMaleCandidates() {
     return await axiosClient()
-      .get("/users/candidates/male")
+      .get("/candidates/male")
       .then((res) => {
         navigate("/vote", { state: { data: res.data, gender: "Male" } });
       });
@@ -18,7 +18,7 @@ const Main = () => {
 
   async function getFemaleCandidates() {
     await axiosClient()
-      .get("/users/candidates/female")
+      .get("/candidates/female")
       .then((res) => {
         navigate("/vote", { state: { data: res.data, gender: "Female" } });
       });
