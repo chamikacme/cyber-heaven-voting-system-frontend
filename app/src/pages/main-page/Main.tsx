@@ -29,6 +29,8 @@ const Main = () => {
   useEffect(() => {
     if (user.isFemaleVoteCasted && user.isMaleVoteCasted) {
       navigate("/thanks");
+    } else if (user.isSuperAdmin) {
+      navigate("/result");
     }
   }, [user, navigate]);
 
