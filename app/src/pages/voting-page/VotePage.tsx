@@ -10,8 +10,6 @@ function VotePage() {
 
   const { user, setUser } = useAuth();
 
-  console.log(user);
-
   type Candidate = {
     id: number;
     firstName: string;
@@ -66,13 +64,13 @@ function VotePage() {
           </h5>
 
           <div className="max-w-md mx-auto">
-            <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
-              <div className="grid place-items-center h-full w-12 text-gray-400">
+            <div className="relative flex items-center w-full h-12 overflow-hidden bg-white rounded-lg focus-within:shadow-lg">
+              <div className="grid w-12 h-full text-gray-400 place-items-center">
                 <IoSearchOutline />
               </div>
 
               <input
-                className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
+                className="w-full h-full pr-2 text-sm text-gray-700 outline-none peer"
                 type="text"
                 id="search"
                 placeholder="Search.."
@@ -92,13 +90,13 @@ function VotePage() {
                     alt="..."
                     className="w-24 h-24 rounded-full shadow-lg"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center w-full h-full rounded-full bg-black bg-opacity-50">
-                    <div className="text-white text-md font-bold">
+                  <div className="absolute inset-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-full">
+                    <div className="font-bold text-white text-md">
                       {data.find((i) => i.id === item)?.firstName}
                     </div>
                   </div>
                   <button
-                    className="absolute top-0 right-0 mt-2 mr-2 bg-white rounded-full shadow-lg w-4 h-4 flex items-center justify-center"
+                    className="absolute top-0 right-0 flex items-center justify-center w-4 h-4 mt-2 mr-2 bg-white rounded-full shadow-lg"
                     onClick={() =>
                       setSelected(selected.filter((id) => id !== item))
                     }
@@ -142,10 +140,10 @@ function VotePage() {
                   <div
                     className={`flex items-center p-5 text-base font-bold text-gray-900 rounded-lg ${
                       selected && selected.includes(item.id)
-                        ? "bg-green-400"
+                        ? "bg-gradient-to-r from-red-700 via-yellow-600 to-yellow-500"
                         : selected && selected.length >= 3
                         ? "bg-gray-400"
-                        : "bg-gray-50"
+                        : "bg-gradient-to-r from-rose-200 to-teal-100"
                     } group hover:shadow dark:text-white`}
                   >
                     <div className="flex flex-wrap justify-center">
@@ -161,7 +159,7 @@ function VotePage() {
                         }`}
                       />
                     </div>
-                    <div className="p-2 w-full">
+                    <div className="w-full p-2">
                       <div
                         className={`flex-1 ms-3 whitespace-nowrap text-center p-2 ${
                           selected &&
@@ -175,7 +173,7 @@ function VotePage() {
                       </div>
                       <div className="text-center">
                         <button
-                          className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${
+                          className={`inline-flex items-center px-4 py-2 text-sm font-medium text-center text-[#78620A] bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-700 rounded-lg  ${
                             selected &&
                             selected.length >= 3 &&
                             !selected.includes(item.id)
@@ -201,9 +199,9 @@ function VotePage() {
         </div>
         {selected && selected.length === 3 ? (
           <div className="fixed bottom-0 bg-[#14452F] flex w-full justify-center py-4">
-            <div className="max-w-md w-full px-6">
+            <div className="w-full max-w-md px-6">
               <button
-                className="inline-flex items-center px-4 py-3 text-lg justify-center font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full"
+                className="inline-flex items-center justify-center w-full px-4 py-3 text-lg font-medium text-center text-[#78620A] bg-gradient-to-b from-yellow-200 via-yellow-400 to-yellow-700 rounded-lg"
                 disabled={!selected || selected!.length < 3}
                 onClick={castVote}
               >

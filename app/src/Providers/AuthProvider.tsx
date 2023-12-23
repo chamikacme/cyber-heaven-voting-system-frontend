@@ -1,5 +1,6 @@
 import React, { ReactNode, createContext, useEffect, useState } from "react";
 import axiosClient from "../AxiosClient/axiosClient";
+import { toast } from "react-toastify";
 
 export interface User {
   id: number;
@@ -40,7 +41,15 @@ function AuthProvider({ children }: { children: ReactNode }) {
           setUser(response.data);
         })
         .catch((error) => {
-          error.response.status === 401 && setToken("");
+          if (error.response.status === 401) {
+            toast.error("Session expired");
+            setUser({} as User);
+            setToken("");
+          } else if (error.response.data) {
+            toast.error(error.response.data.message);
+          } else {
+            toast.error("Something went wrong");
+          }
         });
     }
   }, [token]);
