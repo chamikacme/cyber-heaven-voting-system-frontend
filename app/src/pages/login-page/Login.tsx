@@ -88,7 +88,7 @@ function Login() {
                     value={formData.username}
                     onChange={handleInputChange}
                     className=" sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@thesanmark.com"
+                    placeholder="Enter your username"
                     required
                   />
                 </div>

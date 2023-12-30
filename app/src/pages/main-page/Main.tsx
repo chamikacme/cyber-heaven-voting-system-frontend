@@ -29,6 +29,8 @@ const Main = () => {
   useEffect(() => {
     if (user.isFemaleVoteCasted && user.isMaleVoteCasted) {
       navigate("/thanks");
+    } else if (user.isSuperAdmin) {
+      navigate("/result");
     }
   }, [user, navigate]);
 
@@ -47,34 +49,38 @@ const Main = () => {
           </h1>
 
           <div className="mt-5">
-            <button
-              type="submit"
-              className="text-white   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3.5 text-center inline-flex items-center me-2 "
-              disabled={user.isFemaleVoteCasted}
-              onClick={() => {
-                if (user.isFemaleVoteCasted) {
-                  alert("You have already voted for Queen");
-                } else {
-                  getFemaleCandidates();
-                }
-              }}
-            >
-              <img src={Queen} width={120} alt="queen" />
-            </button>
-            <button
-              type="submit"
-              className="text-white   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3.5 text-center inline-flex items-center me-2 "
-              disabled={user.isMaleVoteCasted}
-              onClick={() => {
-                if (user.isMaleVoteCasted) {
-                  alert("You have already voted for King");
-                } else {
-                  getMaleCandidates();
-                }
-              }}
-            >
-              <img src={King} width={120} alt="king" />
-            </button>
+            {user && !user.isFemaleVoteCasted && (
+              <button
+                type="submit"
+                className="text-white   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3.5 text-center inline-flex items-center me-2 "
+                disabled={user.isFemaleVoteCasted}
+                onClick={() => {
+                  if (user.isFemaleVoteCasted) {
+                    alert("You have already voted for Queen");
+                  } else {
+                    getFemaleCandidates();
+                  }
+                }}
+              >
+                <img src={Queen} width={120} alt="queen" />
+              </button>
+            )}
+            {user && !user.isMaleVoteCasted && (
+              <button
+                type="submit"
+                className="text-white   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xl px-5 py-3.5 text-center inline-flex items-center me-2 "
+                disabled={user.isMaleVoteCasted}
+                onClick={() => {
+                  if (user.isMaleVoteCasted) {
+                    alert("You have already voted for King");
+                  } else {
+                    getMaleCandidates();
+                  }
+                }}
+              >
+                <img src={King} width={120} alt="king" />
+              </button>
+            )}
           </div>
         </div>
       </main>
